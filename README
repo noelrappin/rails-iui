@@ -1,13 +1,99 @@
-rails-iui
+rails_iui
 ========
 
 A Rails wrapper around the iUI library for creating web applications.
 
-Coming soon.
+This was originally created as a set of examples for some articles that should
+be appearing soon. I'm releasing them as a plugin in the hope they'll be 
+somewhat useful, even in their current partial state.
+
+4-21-2008: Still functionally incomplete, and somewhat embarrassingly, without
+automated tests.
+
+More Info
+=========
+
+Details on iUI can be found at http://code.google.com/p/iui/
+
+The URL for this repository is http://github.com/noelrappin/rails-iui/tree/master
+
+The clone URL is git://github.com/noelrappin/rails-iui.git
 
 
 Example
 =======
+
+The rails_iui plugin does three things.
+
+A series of Rake tasks will download iUI and insert it in the current Rails
+project, changing the image URLs in the CSS file to match the standard Rails
+layout.
+
+rake iui:install  #download and install
+rake iui:install_compact #download and install the compact version of iui
+rake iui:clean    #removes iui files
+
+The module ActionController::IphoneController adds support for recognizing
+Mobile Safari as the :iphone pseudo-MIME type.
+
+In your controller (can be ApplicationController) add the line
+
+acts_as_iphone_controller
+
+And any respond_to block can include iphone as an option, looking for 
+.iphone.erb files in the view directory. Passing the argument true, as in
+acts_as_iphone_controller(true) turns on test mode, where all requests are
+treated as iphone regardless of user agent string. This is useful for testing
+in some of the iPhone simulators. You'll need to restart the server for test
+mode changes to take effect.
+
+In your views, several methods from the IuiHelper module are automatically
+imported into your application and are available throughout.  
+
+viewport_tag(options = {})
+  Builds the Mobile Safari meta viewport tag, pass the option 
+  :device_width => true to specify the options for applications optimized for
+  iPhone. More options to come.
+
+include_iui_files 
+  Place in the header of your layout, includes the tags for the iUI CSS and
+  JavaScript files. Also defines the $ function, as in prototype.
+
+button_link_to(name, options, html_options = {})
+  Creates a link with the iUI CSS class of "button"
+ 
+link_to_replace(name, options, html_options = {}) 
+  An iUI link which replaces the link tag with the result text. Designed to
+  be used for an anchor inside a list
+
+link_to_external(name, options, html_options = {}) 
+  An iUI link to an external item, this is an regular HTTP request, as 
+  opposed to what iUI normally does, which is an Ajax request
+
+iui_toolbar(initial_caption, search_url = nil)
+  Sets the toolbar -- the caption is the heading. If there is a search_url,
+  then a search button is added to the right side
+
+iui_list(items, options = {}) 
+  Creates an iPhone style of list. The items are expected to respond to the
+  methods :caption -- the text display for the list, and :url, the url to
+  go to when the item is selected. The :top and :bottom options specify
+  text to be displayed above or below the list items. The :more option 
+  specifies an item to go at the end of the list as a link_to_replace. The
+  :as_replace options sends the list items without a surrounding ul tag, to
+  be the response to a link_to_replace.
+  
+iui_grouped_list(items, options = {}, &group_by_block)
+  Same as iui_list, but groups each item by their response to the 
+  group_by_block
+
+Upcoming
+========
+
+Support for dialogs and panels
+Tests
+Better documentation
+
 
 
 Copyright (c) 2008 Noel Rappin, released under the MIT license
