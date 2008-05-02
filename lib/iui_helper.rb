@@ -82,6 +82,32 @@ module IuiHelper
     content_tag(:ul, group_elements.flatten.join("\n"), :selected => "true")
   end
   
+  def fieldset(&block)
+    concat(content_tag(:fieldset, capture(&block)), block.binding)
+  end
+  
+  def row(label_text="", &block)
+    label = if label_text.blank? then "" else content_tag(:label, label_text) end
+    block = if block_given? then capture(&block) else "" end
+    div = content_tag(:div, label + block, :class => "row")
+    if block_given?
+      concat(div, block.binding)
+    else
+      div
+    end
+  end
+  
+  def row_label(&block)
+    label = content_tag(:label, capture(&block))
+    div = content_tag(:div, label, :class => "row")
+    concat(div, block.binding)
+  end
+  
+  def panel(&block)
+    div = content_tag(:div, capture(&block), :class => "panel")
+    concat(div, block.binding)
+  end
+  
 end
 
 ActionView::Base.send(:include, IuiHelper)
