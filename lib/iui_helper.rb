@@ -40,7 +40,8 @@ module IuiHelper
     back_button = button_link_to("", "#", :id => "backButton")
     header = content_tag(:h1, initial_caption, :id => "header_text")
     search_link = if search_url 
-                  then button_link_to("Search", search_url, :id => "searchButton")
+                  then button_link_to("Search", search_url, :id => "searchButton",
+                      :target => "_self") 
                   else ""
                   end 
     content = [back_button, header, search_link].join("\n")
@@ -106,6 +107,17 @@ module IuiHelper
   def panel(&block)
     div = content_tag(:div, capture(&block), :class => "panel")
     concat(div, block.binding)
+  end
+  
+  def observe_orientation_change(url_options = {})
+    remote = remote_function :url => url_options, 	
+  						:with => "'position=' + String(window.orientation)"
+    func = "function() { #{remote}; };"
+    javascript_tag("function updateOrientation() { #{remote}; }")
+  end
+  
+  def register_orientation_change
+    'onorientationchange="updateOrientation();"'
   end
   
 end
