@@ -109,6 +109,11 @@ module IuiHelper
     concat(div, block.binding)
   end
   
+  def dialog(&block)
+    div = content_tag(:div, capture(&block), :class => "dialog")
+    concat(div, block.binding)
+  end
+  
   def observe_orientation_change(url_options = {})
     remote = remote_function :url => url_options, 	
   						:with => "'position=' + String(window.orientation)"

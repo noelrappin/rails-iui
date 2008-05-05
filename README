@@ -73,6 +73,9 @@ link_to_replace(name, options, html_options = {})
 link_to_external(name, options, html_options = {}) 
   An iUI link to an external item, this is an regular HTTP request, as 
   opposed to what iUI normally does, which is an Ajax request
+  
+link_to_target(target, name, options, html_options = {})
+  An iUI link of a type based on the target parameter
 
 iui_toolbar(initial_caption, search_url = nil)
   Sets the toolbar -- the caption is the heading. If there is a search_url,
@@ -90,13 +93,40 @@ iui_list(items, options = {})
 iui_grouped_list(items, options = {}, &group_by_block)
   Same as iui_list, but groups each item by their response to the 
   group_by_block
+  
+fieldset(&block)
+  Wrapper around the iUI usage of a fieldset tag
+  
+row(label_text = "", &block)
+  Wrapper around the iUI row (inside a fieldset) for rounded rectangles
+  
+row_label(&block)
+  Wrapper for an iUI row that is just a label
+  
+panel(&block)
+  Wrapper for an iUI div class panel
+
+dialog(&block)
+  Wrapper for an iUI div class dialog
+  
+observe_orientation_change(url_options = {})
+  Place in the layout header file, the url_options is any Rails URL format.
+  The URL gets a callback when the iPhone's orientation changes. The 
+  parameter "position" is set to "0" for upright, "90" for counter-clockwise
+  landscape, and "-90" for clockwise landscape
+  
+register_orientation_change
+  Must be placed inside the body tag for the layout for observe_orientation_change
+  to work.
+
 
 Upcoming
 ========
 
-Support for dialogs and panels
 Tests
 Better documentation
+
+Better JavaScript effects
 
 
 
