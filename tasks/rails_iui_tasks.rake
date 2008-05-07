@@ -9,7 +9,7 @@ namespace :iui do
         url = "http://iui.googlecode.com/files/iui-#{version}.tar.gz"
         puts "Loading iUI"
         open("iui-#{version}.tar.gz", 'w').write(open(url).read)
-        system "tar zxvf iui-#{version}.tar.gz"
+        system "tar zxvf iui-#{version}.tar.gz iui"
       end
     end
   end
