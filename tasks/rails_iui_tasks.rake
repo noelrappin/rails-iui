@@ -10,6 +10,7 @@ namespace :iui do
         puts "Loading iUI"
         open("iui-#{version}.tar.gz", 'w').write(open(url).read)
         system "tar zxvf iui-#{version}.tar.gz iui"
+        system "rm iui-#{version}.tar.gz"
       end
     end
   end
