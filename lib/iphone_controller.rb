@@ -29,16 +29,24 @@ module ActionController
       end
       
       def set_iphone_format
-        if is_iphone_request? or request.format.to_sym == :iphone
+        if is_iphone_request? || is_iphone_format? || is_iphone_subdomain?
           request.format = if cookies["browser"] == "desktop" 
                            then :html 
                            else :iphone 
                            end
         end
       end
+      
+      def is_iphone_format?
+        request.format.to_sym == :iphone
+      end
 
       def is_iphone_request?
         request.user_agent =~ /(Mobile\/.+Safari)/
+      end
+      
+      def is_iphone_subdomain?
+        request.subdomains.first == "iphone"
       end
     end
     
