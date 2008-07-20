@@ -3,7 +3,7 @@ module IuiHelper
   def viewport_tag(options = {})
     content = ""
     content += "width = device-width, user-scalable=no" if options[:device_width]
-    content_tag(:meta, :name => "viewport", :content => content)
+    tag(:meta, :name => "viewport", :content => content)
   end
   
   def include_iui_files
