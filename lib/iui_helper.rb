@@ -3,7 +3,7 @@ module IuiHelper
   def viewport_tag(options = {})
     content = ""
     content += "width = device-width, user-scalable=no" if options[:device_width]
-    content_tag(:meta, :name => "viewport", :content => content)
+    tag(:meta, :name => "viewport", :content => content)
   end
   
   def include_iui_files
@@ -112,6 +112,16 @@ module IuiHelper
   def dialog(&block)
     div = content_tag(:div, capture(&block), :class => "dialog")
     concat(div, block.binding)
+  end
+  
+  def servicelink_tel(telno)
+      content_tag("a",telno,:class=>"ciuServiceLink",:target => "_self",:href => "tel:#{telno}" ,:onclick => "return(navigator.userAgent.indexOf('iPhone') != -1)")
+  end
+  def servicelink_email(email)
+      content_tag("a",email,:class=>"ciuServiceLink",:target => "_self",:href => "mailto:#{email}" ,:onclick => "return(navigator.userAgent.indexOf('iPhone') != -1)")
+  end
+  def servicebutton_map(gadr,caption)
+        content_tag("a",caption,:class=>"ciuServiceButton",:target => "_self",:href => "http://maps.google.com/maps?q=#{gadr}" ,:onclick => "return(navigator.userAgent.indexOf('iPhone') != -1)")
   end
   
   def observe_orientation_change(url_options = {})

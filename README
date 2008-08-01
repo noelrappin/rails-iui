@@ -108,7 +108,24 @@ panel(&block)
 
 dialog(&block)
   Wrapper for an iUI div class dialog
-  
+
+servicelink_tel(telno)
+  Creates a service link when a correctly formatted telephone number string is given (telno).
+  Triggres the iPhone Phone App so that a call is initiated.
+
+servicelink_email(email)
+  Creates a service link when to the mail application. A mailto type link is created
+  Triggres the iPhone Email App.
+
+servicebutton_map(gadr,caption)
+  Creates a service button to the maps application. The gadr parameter is a correctly 
+  formatted google adress string. 
+  A good place to implement the gadr method is in your people/adress model. Like so:
+	def gadr
+		 "#{street},#{zip} #{city},#{country}"
+	end
+  caption is the text that goes into the button 
+
 observe_orientation_change(url_options = {})
   Place in the layout header file, the url_options is any Rails URL format.
   The URL gets a callback when the iPhone's orientation changes. The 
